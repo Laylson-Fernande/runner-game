@@ -2,16 +2,17 @@ package runner.ai;
 
 import java.util.List;
 
-import aplication.RectShape;
+import aplication.Rect;
 import runner.ai.genetic.algorithm.GeneticAlgorithm;
+import runner.aplication.level.Obstacle;
 
 public class ArtificialIntelligence {
 	
 	public static int NEURAL_NETWORK_INPUT = 0;
-	public static int NEURAL_NETWORK_HIDDEN = 10;
+	public static int NEURAL_NETWORK_HIDDEN = 2;
 	public static int NEURAL_NETWORK_OUTPUT = 0;
 	
-	public static int POPULATION_SIZE = 20;
+	public static int POPULATION_SIZE = 1000;
 	public static final double PERCENT_ELITE_CHROMOSOMES = 0.1;  // 0.5 = 50%
 	public static final double PERCENT_TOURNAMENT_SELECTION = 0.4; // 0.5 = 50%
 	public static final double MUTATION_RATE = 0.25; // 0.5 = 50%
@@ -42,8 +43,8 @@ public class ArtificialIntelligence {
 		GENERATION ++;
 	}
 	
-	public List<RectShape> predict(double[] input){
-		if(REMAINING_POPULATION == 0) {
+	public List<Rect> predict(List<Obstacle> input){
+		if(REMAINING_POPULATION <= 0) {
 			this.evolve();
 		}
 		return population.predict(input);
@@ -52,6 +53,10 @@ public class ArtificialIntelligence {
 	public int getBestChromosome() {
 		population.sortChromosomesByFitness();
 		return population.getChromosomes()[0].getFitness();
+	}
+	
+	public void checkCollision() {
+		
 	}
 
 }

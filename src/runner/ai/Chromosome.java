@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
+import aplication.Body;
+import aplication.Rect;
 import runner.ai.neural.network.NeuralNetwork;
 
 public class Chromosome implements Comparable<Chromosome>{
@@ -12,8 +14,9 @@ public class Chromosome implements Comparable<Chromosome>{
 	private double[] genes;
 	
 	private NeuralNetwork neural;
+	
 	private boolean isAlive = true;
-	private Color color;
+	public Body body;
 	
 	public Chromosome(boolean initialize) {
 		this.neural = new NeuralNetwork(ArtificialIntelligence.NEURAL_NETWORK_INPUT, ArtificialIntelligence.NEURAL_NETWORK_HIDDEN, ArtificialIntelligence.NEURAL_NETWORK_OUTPUT, initialize);
@@ -24,10 +27,7 @@ public class Chromosome implements Comparable<Chromosome>{
 			this.genes = new double[Chromosome.size];
 		}
 		
-		int r = (int) (Math.random() * 256 - 0);
-		int g = (int) (Math.random() * 256 - 0);
-		int b = (int) (Math.random() * 256 - 0);
-		this.setColor(new Color(r, g, b));
+		this.body = new Body();
 	}
 	
 	public int predict(double[] input){
@@ -60,7 +60,7 @@ public class Chromosome implements Comparable<Chromosome>{
 	}
 	
 	public int getFitness() {
-		return fitness;
+		return fitness / 10;
 	}
 
 	public void sumFitness(int sum) {
@@ -82,12 +82,8 @@ public class Chromosome implements Comparable<Chromosome>{
 	public void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
 	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
+	
+	public Rect getRect() {
+		return body.getRect();
 	}
 }

@@ -3,7 +3,8 @@ package runner.aplication;
 public class StartGame {
 
 	public static void main(String[] args) {
-		MainGame mainGame = new MainGame();
-		mainGame.init();
+		MainGame game = new MainGame();
+		game.init();
+		game.update();
 	}
 }
